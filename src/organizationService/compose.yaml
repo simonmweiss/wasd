@@ -10,10 +10,10 @@ services:
   organizationservice:
     image: 'swe5076/swe5076:organizationservice_img'
     environment:
-      - 'spring.datasource.url=jdbc:postgresql://host.docker.internal:6742/mydatabase'
-      - 'kafka.server.url=host.docker.internal:9092'
+      - 'spring.datasource.url=jdbc:postgresql://postgres-organization:5432/mydatabase'
+      - 'kafka.server.url=kafka:9092'
     ports:
-      - '8080:8080'
+      - '8082:8082'
     depends_on:
       - postgres-organization
       - kafka

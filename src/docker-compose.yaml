@@ -17,7 +17,7 @@ services:
       KAFKA_ENABLE_KRAFT: "yes"
       ALLOW_PLAINTEXT_LISTENER: "yes"
       KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,DOCKER:PLAINTEXT,HOST:PLAINTEXT'
-      KAFKA_CFG_ADVERTISED_LISTENERS: 'DOCKER://kafka:29092,HOST://host.docker.internal:9092'
+      KAFKA_CFG_ADVERTISED_LISTENERS: 'DOCKER://kafka:29092,HOST://kafka:9092'
       KAFKA_CFG_PROCESS_ROLES: 'broker,controller'
       KAFKA_CFG_NODE_ID: 1
       KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: '1@kafka:29093'
@@ -44,6 +44,7 @@ services:
       KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_CFG_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+
   # redpanda console (formerly kowl) https://github.com/redpanda-data/console
   kafkaui:
     image: docker.redpanda.com/redpandadata/console:v3.1.0

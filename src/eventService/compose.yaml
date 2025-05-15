@@ -17,13 +17,11 @@ services:
   eventservice:
     image: 'swe5076/swe5076:eventservice_img'
     environment:
-      - 'spring.datasource.url=jdbc:postgresql://host.docker.internal:38368/mydatabase'
-      - 'kafka.server.url=host.docker.internal:9092'
-      - 'solr.server.url=host.docker.internal:8983'
+      - 'spring.datasource.url=jdbc:postgresql://postgres-event:5432/mydatabase'
+      - 'kafka.server.url=kafka:9092'
+      - 'solr.server.url=solr-core5:8983'
     ports:
       - '8081:8081'
     depends_on:
       - postgres-event
       - kafka
-    
-  

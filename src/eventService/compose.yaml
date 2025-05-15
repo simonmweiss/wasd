@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=myuser'
+    ports:
+      - '38368:5432'
+  solr-core5:
+    image: solr
+    ports:
+      - "8983:8983"
+    volumes:
+      - ./myconfig:/opt/solr/server/solr/configsets/myconfig:ro
+    command: solr-precreate event-search /opt/solr/server/solr/configsets/myconfig
+  eventservice:
+    image: 'swe5076/swe5076:eventservice_img'
+    environment:
+      - 'spring.datasource.url=jdbc:postgresql://host.docker.internal:38368/mydatabase'
+      - 'kafka.server.url=host.docker.internal:9092'
+      - 'solr.server.url=host.docker.internal:8983'
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+      - kafka
+    
+  

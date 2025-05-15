@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <schema name="tende-person-search" version="1.6">
+        <fields>
+        <field name="_version_" type="long" indexed="true" stored="true"/>
+        <field name="uuid" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
+        <field name="title" type="text_splitting" indexed="true" stored="true" />
+        <field name="description" type="text_splitting" indexed="true" stored="true" />
+        </fields>
+        <uniqueKey>uuid</uniqueKey>
+        <types>
+            <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+	    <fieldType name="string" class="solr.StrField"/>
+            <fieldType name="text_splitting" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="true">
+                <analyzer type="index">
+                    <tokenizer class="solr.WhitespaceTokenizerFactory" rule="java" />
+                    <filter class="solr.WordDelimiterGraphFilterFactory"
+                        splitOnCaseChange="1"
+                        splitOnNumerics="1"
+                        stemEnglishPossessive="0"
+                        generateWordParts="1"
+                        generateNumberParts="1"
+                        catenateWords="1"
+                        catenateNumbers="1"
+                        catenateAll="1"
+                        preserveOriginal="1"
+                    />
+                    <filter class="solr.LowerCaseFilterFactory"/>
+                    <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="true"/>
+                    <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="30" />
+                </analyzer>
+                <analyzer type="query">
+                    <tokenizer class="solr.WhitespaceTokenizerFactory" rule="java" />
+                    <filter class="solr.WordDelimiterGraphFilterFactory"
+                        splitOnCaseChange="1"
+                        splitOnNumerics="1"
+                        stemEnglishPossessive="0"
+                        generateWordParts="1"
+                        generateNumberParts="1"
+                        catenateWords="0"
+                        catenateNumbers="0"
+                        catenateAll="0"
+                        preserveOriginal="1"
+                    />
+                    <filter class="solr.LowerCaseFilterFactory"/>
+                </analyzer>
+            </fieldType>
+        </types>
+    </schema>

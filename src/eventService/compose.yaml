@@ -21,7 +21,7 @@ services:
       - 'kafka.server.url=host.docker.internal:9092'
       - 'solr.server.url=host.docker.internal:8983'
     ports:
-      - '8080:8080'
+      - '8081:8081'
     depends_on:
       - postgres-event
       - kafka

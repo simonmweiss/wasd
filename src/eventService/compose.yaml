@@ -7,6 +7,8 @@ services:
       - 'POSTGRES_USER=myuser'
     ports:
       - '38368:5432'
+    profiles:
+      [service]
   solr-core5:
     image: solr
     ports:
@@ -14,6 +16,8 @@ services:
     volumes:
       - ./myconfig:/opt/solr/server/solr/configsets/myconfig:ro
     command: solr-precreate event-search /opt/solr/server/solr/configsets/myconfig
+    profiles:
+      [service]
   eventservice:
     image: 'swe5076/swe5076:eventservice_img'
     environment:
@@ -25,3 +29,5 @@ services:
     depends_on:
       - postgres-event
       - kafka
+    profiles:
+      [service]

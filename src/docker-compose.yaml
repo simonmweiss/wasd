@@ -61,3 +61,4 @@ services:
           listenPort: 5000
     depends_on:
       - kafka
+    restart: unless-stopped

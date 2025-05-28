@@ -12,3 +12,11 @@
 | EventService | 8081 | event_topic | 38368
 | EventServiceSolr | 8983 |
 | OrganizationService | 8082 | organization_topic | 6742
+
+
+# API Dokumentation
+## EventService
+s. /swagger-ui/index.html
+
+## OrganizationService
+s. /swagger-ui/index.html

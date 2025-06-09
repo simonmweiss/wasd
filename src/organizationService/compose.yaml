@@ -7,6 +7,9 @@ services:
       - 'POSTGRES_USER=myuser'
     ports:
       - '6742:5432'
+    networks:
+      - prod
+
   organizationservice:
     image: 'swe5076/swe5076:organizationservice_img'
     environment:
@@ -17,3 +20,9 @@ services:
     depends_on:
       - postgres-organization
       - kafka
+    networks:
+      - prod
+
+networks:
+  prod:
+    external: true

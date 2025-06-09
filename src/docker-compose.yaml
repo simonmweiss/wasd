@@ -1,6 +1,11 @@
 include:
   - eventService/compose.yaml
   - organizationService/compose.yaml
+  - termRegistrationService/compose.yaml
+
+networks:
+  prod:
+    driver: bridge
 
 services:
   kafka:
@@ -44,6 +49,8 @@ services:
       KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_CFG_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    networks:
+      - prod
 
   # redpanda console (formerly kowl) https://github.com/redpanda-data/console
   kafkaui:
@@ -62,3 +69,5 @@ services:
     depends_on:
       - kafka
     restart: unless-stopped
+    networks:
+      - prod

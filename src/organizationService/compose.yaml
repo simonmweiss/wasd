@@ -7,8 +7,6 @@ services:
       - 'POSTGRES_USER=myuser'
     ports:
       - '6742:5432'
-    networks:
-      - holidayplannernetwork
 
   organizationservice:
     image: 'swe5076/swe5076:organizationservice_img'
@@ -20,5 +18,3 @@ services:
     depends_on:
       - postgres-organization
       - kafka
-    networks:
-      - holidayplannernetwork

@@ -1,6 +1,7 @@
 include:
   - eventService/compose.yaml
   - organizationService/compose.yaml
+  - termRegistrationService/compose.yml
 
 services:
   kafka:

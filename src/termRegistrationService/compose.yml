@@ -1,0 +1,44 @@
+services:
+  termregistrationservice:
+    image: lossphilipp/termregistrationservice:latest
+    container_name: termregistrationservice
+    ports:
+      - 5173:5173
+    environment:
+      - ConnectionStrings:ConnectionString=Host=termregistrationservicedb;port=5455;Database=TermRegistrationService;Username=root;Password=secretPW!
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5173
+    restart: unless-stopped
+    depends_on:
+      postgres-organization:
+        condition: service_started
+      kafka:
+        condition: service_started
+      termregistrationservicedb:
+        condition: service_healthy
+    command: >
+      sh -c "dotnet tool install --global dotnet-ef &&
+             export PATH=\"$PATH:/root/.dotnet/tools\" &&
+             dotnet ef database update --project ./TermRegistrationService/TermRegistrationService.csproj &&
+             dotnet TermRegistrationService.dll"
+
+  termregistrationservicedb:
+    image: postgres:latest
+    container_name: termregistrationdb
+    environment:
+      POSTGRES_DB: TermRegistrationService
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secretPW!
+    ports:
+      - "5455:5432"
+    volumes:
+      - termregistrationservicedata:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d TermRegistrationService"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  termregistrationservicedata:

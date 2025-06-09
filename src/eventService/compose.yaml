@@ -7,6 +7,7 @@ services:
       - 'POSTGRES_USER=myuser'
     ports:
       - '38368:5432'
+
   solr-core5:
     image: solr
     ports:
@@ -14,6 +15,7 @@ services:
     volumes:
       - ./myconfig:/opt/solr/server/solr/configsets/myconfig:ro
     command: solr-precreate event-search /opt/solr/server/solr/configsets/myconfig
+
   eventservice:
     image: 'swe5076/swe5076:eventservice_img'
     environment:

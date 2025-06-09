@@ -7,6 +7,7 @@ services:
       - 'POSTGRES_USER=myuser'
     ports:
       - '6742:5432'
+
   organizationservice:
     image: 'swe5076/swe5076:organizationservice_img'
     environment:

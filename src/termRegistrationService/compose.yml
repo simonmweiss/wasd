@@ -9,7 +9,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:5173
     networks:
-      - prod
+      - holidayplannernetwork
     restart: unless-stopped
     depends_on:
       postgres-organization:
@@ -36,17 +36,13 @@ services:
     volumes:
       - termregistrationservicedata:/var/lib/postgresql/data
     networks:
-      - prod
+      - holidayplannernetwork
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U root"]
       interval: 5s
       timeout: 5s
       retries: 5
 
 volumes:
   termregistrationservicedata:
-
-networks:
-  prod:
-    external: true

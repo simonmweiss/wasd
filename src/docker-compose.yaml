@@ -1,10 +1,10 @@
 include:
   - eventService/compose.yaml
   - organizationService/compose.yaml
-  - termRegistrationService/compose.yaml
+  - termRegistrationService/compose.yml
 
 networks:
-  prod:
+  holidayplannernetwork:
     driver: bridge
 
 services:
@@ -50,7 +50,7 @@ services:
       KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_CFG_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
     networks:
-      - prod
+      - holidayplannernetwork
 
   # redpanda console (formerly kowl) https://github.com/redpanda-data/console
   kafkaui:
@@ -70,4 +70,4 @@ services:
       - kafka
     restart: unless-stopped
     networks:
-      - prod
+      - holidayplannernetwork

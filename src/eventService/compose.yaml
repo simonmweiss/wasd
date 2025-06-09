@@ -8,7 +8,7 @@ services:
     ports:
       - '38368:5432'
     networks:
-      - prod
+      - holidayplannernetwork
 
   solr-core5:
     image: solr
@@ -18,7 +18,7 @@ services:
       - ./myconfig:/opt/solr/server/solr/configsets/myconfig:ro
     command: solr-precreate event-search /opt/solr/server/solr/configsets/myconfig
     networks:
-      - prod
+      - holidayplannernetwork
 
   eventservice:
     image: 'swe5076/swe5076:eventservice_img'
@@ -32,8 +32,4 @@ services:
       - postgres-event
       - kafka
     networks:
-      - prod
-
-networks:
-  prod:
-    external: true
+      - holidayplannernetwork

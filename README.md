@@ -40,5 +40,8 @@ Aktuell braucht das `docker-compose.yaml`-file über 1 GB um alle images zu pull
 |                         |           |
 | Summe                   |   1,3  GB |
 
-# JWT Secret
+# JWT
+## Secret
 `FortWebArch_Bierkoenig_123!`
+## Sample JWT
+`{  "sub": "913d1e92-7400-4869-8f5a-c918531a6305",  "orgId": 4711,  "roles": ["ADMIN", "ORGANIZER", "ACCOUNTANT", "TEAMADMIN"],  "iat": 1678886400, // March 15, 2023 00:00:00 GMT  "exp": 1678890000  // March 15, 2023 01:00:00 GMT}`

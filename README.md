@@ -39,3 +39,6 @@ Aktuell braucht das `docker-compose.yaml`-file über 1 GB um alle images zu pull
 | organizationservice     | 337    MB |
 |                         |           |
 | Summe                   |   1,3  GB |
+
+#JWT Secret
+`FortWebArch_Bierkoenig_123!`

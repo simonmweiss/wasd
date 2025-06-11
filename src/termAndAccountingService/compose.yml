@@ -1,0 +1,103 @@
+
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  accounting-service:
+    build:
+      context: ./AccountingService/accountingservice
+    ports:
+      - "8081:8081"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/accounting_db
+      DATABASE_USERNAME: accountinguser
+      DATABASE_PASSWORD: accountingUser_pw_geheim
+
+  term-service:
+    build:
+      context: ./TermService/termservice
+    ports:
+      - "8082:8082"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/term_db
+      DATABASE_USERNAME: termuser
+      DATABASE_PASSWORD: termUser_pw_geheim
+
+  kafka:
+    image: bitnami/kafka:3.9.0
+    volumes:
+      - "./volumes/kafka/data:/bitnami/kafka"
+    user: "0"
+    ports:
+      - "9092:9092"
+    environment:
+      # for configuration options see https://github.com/bitnami/containers/blob/main/bitnami/kafka/README.md#configuration
+      # and prefix all configs from https://kafka.apache.org/documentation/#adminclientconfigs with KAFKA_CFG_
+      KAFKA_CFG_BROKER_ID: "1"
+      KAFKA_ENABLE_KRAFT: "yes"
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,DOCKER:PLAINTEXT,HOST:PLAINTEXT'
+      KAFKA_CFG_ADVERTISED_LISTENERS: 'DOCKER://kafka:29092,HOST://localhost:9092'
+      KAFKA_CFG_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CFG_NODE_ID: 1
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: '1@kafka:29093'
+      KAFKA_CFG_LISTENERS: 'DOCKER://kafka:29092,CONTROLLER://kafka:29093,HOST://0.0.0.0:9092'
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: 'DOCKER'
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+
+      # enable gzip compression (even if producer did not activate compression)
+      KAFKA_CFG_COMPRESSION_TYPE: gzip
+
+      KAFKA_CFG_LOG_RETENTION_MS: -1
+      KAFKA_CFG_LOG_RETENTION_BYTES: -1
+
+      # stream time is defined by the source instead of the actual ingestion time
+      KAFKA_CFG_MESSAGE_TIMESTAMP_TYPE: CreateTime
+
+      # we allow deletion of topics in this dev setup, might not be used in prod
+      KAFKA_CFG_DELETE_TOPIC_ENABLE: "true"
+      # allow auto generation of topics
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+      # used for single kafka broker
+      KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CFG_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+
+  # redpanda console (formerly kowl) https://github.com/redpanda-data/console
+  kafkaui:
+    image: docker.redpanda.com/redpandadata/console:v3.1.0
+    ports:
+      - "5000:5000"
+    entrypoint: /bin/sh
+    command: -c "echo \"$$CONSOLE_CONFIG_FILE\" > /tmp/config.yml; /app/console"
+    environment:
+      CONFIG_FILEPATH: /tmp/config.yml
+      CONSOLE_CONFIG_FILE: |
+        kafka:
+          brokers: ["kafka:29092"]
+        server:
+          listenPort: 5000
+    depends_on:
+      - kafka
+    profiles:
+      - kafka
+      - default

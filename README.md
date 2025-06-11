@@ -42,6 +42,27 @@ Aktuell braucht das `docker-compose.yaml`-file über 1 GB um alle images zu pull
 
 # JWT
 ## Secret
-`FortWebArch_Bierkoenig_123!`
+`FortWebArch_Bierkoenig_12345678!`
+
 ## Sample JWT
-`{  "sub": "913d1e92-7400-4869-8f5a-c918531a6305",  "orgId": 4711,  "roles": ["ADMIN", "ORGANIZER", "ACCOUNTANT", "TEAMADMIN"],  "iat": 1678886400, // March 15, 2023 00:00:00 GMT  "exp": 1678890000  // March 15, 2023 01:00:00 GMT}`
+Base64 encoded
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmOTEwMTM2Ny1iNmQ2LTQ4MDgtYTljNy00ZjYxNzA3NjI3ZWEiLCJvcmdJZCI6IjQ3MTEiLCJyb2xlcyI6WyJBRE1JTiIsIk9SR0FOSVpFUiIsIkFDQ09VTlRBTlQiLCJURUFNQURNSU4iXSwiZXhwIjoxNzQ5NjI3MTk1LCJpc3MiOiJIb2xpZGF5UGxhbm5lciIsImF1ZCI6IkhvbGlkYXlQbGFubmVyIn0.PL_asGVml1Wm-tDOIs_4nVAiHNA7ZnsfdY5T5WZah18
+```
+
+Parsed to JSON
+```JSON
+{
+  "sub": "f9101367-b6d6-4808-a9c7-4f61707627ea",
+  "iss": "HolidayPlanner",
+  "aud": "HolidayPlanner",
+  "orgId": "4711",
+  "roles": [
+    "ADMIN",
+    "ORGANIZER",
+    "ACCOUNTANT",
+    "TEAMADMIN"
+  ],
+  "exp": 1749627195
+}
+```

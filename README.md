@@ -13,6 +13,8 @@
 | EventServiceSolr        | 8983 |
 | OrganizationService     | 8082 | organization_topic      | 6742    |
 | TermregistrationService | 5173 | term_registration_topic | 5455    |
+| AccountingService       | 6900 | - (ToDo)                | 2345    |
+| TermService             | 6901 | - (ToDo)                | 2346    |
 
 
 # API Dokumentation
@@ -24,6 +26,12 @@ s. /swagger-ui/index.html
 
 ## TermregistrationService
 s. /swagger/index.html
+
+## TermService
+s. /swagger-ui
+
+## AccountingService
+s. /swagger-ui
 
 # Tipp
 Aktuell braucht das `docker-compose.yaml`-file über 1 GB um alle images zu pullen (und es fehlen noch einige). Bitte genug Zeit einplanen um alles runter zu laden.

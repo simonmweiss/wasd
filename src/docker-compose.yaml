@@ -2,6 +2,8 @@ include:
   - eventService/compose.yaml
   - organizationService/compose.yaml
   - termRegistrationService/compose.yml
+  - accountingService/compose.yml
+  - termService/compose.yml
 
 services:
   kafka:

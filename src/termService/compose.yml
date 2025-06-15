@@ -1,0 +1,31 @@
+services:
+    termservice:
+        image: nkn5729/term-service:latest
+        container_name: term-service
+        ports:
+            - 6901:6901
+        environment:
+            DATABASE_URL: jdbc:postgresql://termdb:5432/term_db
+            DATABASE_USERNAME: termuser
+            DATABASE_PASSWORD: termUser_pw_geheim
+            SERVICE_PORT: 6901
+        depends_on:
+            termdb:
+                condition: service_healthy
+            kafka:
+                condition: service_started
+
+    termdb:
+        image: postgres:latest
+        container_name: termdb
+        environment:
+            POSTGRES_DB: term_db
+            POSTGRES_USER: termuser
+            POSTGRES_PASSWORD: termUser_pw_geheim
+        ports:
+            - '2346:5432'
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U termuser -d term_db']
+            interval: 5s
+            timeout: 5s
+            retries: 5

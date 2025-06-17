@@ -55,7 +55,7 @@ Aktuell braucht das `docker-compose.yaml`-file über 1 GB um alle images zu pull
 ## Sample JWT
 Base64 encoded
 ```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmOTEwMTM2Ny1iNmQ2LTQ4MDgtYTljNy00ZjYxNzA3NjI3ZWEiLCJvcmdJZCI6IjQ3MTEiLCJyb2xlcyI6WyJBRE1JTiIsIk9SR0FOSVpFUiIsIkFDQ09VTlRBTlQiLCJURUFNQURNSU4iXSwiZXhwIjoxNzQ5NjI3MTk1LCJpc3MiOiJIb2xpZGF5UGxhbm5lciIsImF1ZCI6IkhvbGlkYXlQbGFubmVyIn0.PL_asGVml1Wm-tDOIs_4nVAiHNA7ZnsfdY5T5WZah18
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmOTEwMTM2Ny1iNmQ2LTQ4MDgtYTljNy00ZjYxNzA3NjI3ZWEiLCJpc3MiOiJIb2xpZGF5UGxhbm5lciIsImF1ZCI6IkhvbGlkYXlQbGFubmVyIiwib3JnSWQiOiJmNGEyZDMwYy1iNGNkLTRiOTMtYmYyNi0wMzNmYmFlYzhjMDkiLCJyb2xlcyI6WyJBRE1JTiIsIk9SR0FOSVpFUiIsIkFDQ09VTlRBTlQiLCJURUFNQURNSU4iXSwiZXhwIjoxNzY1OTUzODE0fQ.200jDphB9rsodlYes3k7M3dtOI72x7GVUzakCGMxzLA
 ```
 
 Parsed to JSON
@@ -64,13 +64,13 @@ Parsed to JSON
   "sub": "f9101367-b6d6-4808-a9c7-4f61707627ea",
   "iss": "HolidayPlanner",
   "aud": "HolidayPlanner",
-  "orgId": "4711",
+  "orgId": "f4a2d30c-b4cd-4b93-bf26-033fbaec8c09",
   "roles": [
     "ADMIN",
     "ORGANIZER",
     "ACCOUNTANT",
     "TEAMADMIN"
   ],
-  "exp": 1749627195
+  "exp": 1765953814
 }
 ```

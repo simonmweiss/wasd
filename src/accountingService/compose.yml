@@ -1,6 +1,6 @@
 services:
     accountingservice:
-        image: nkn5729/accounting-service:latest
+        image: nkn5729/accounting-service:2025-06-20-2
         container_name: accounting-service
         ports:
             - 6900:6900
@@ -24,6 +24,8 @@ services:
             POSTGRES_PASSWORD: accountingUser_pw_geheim
         ports:
             - '2345:5432'
+        volumes:
+          - ./accounting-init.sql:/docker-entrypoint-initdb.d/init.sql
         healthcheck:
             test: ['CMD-SHELL', 'pg_isready -U accountinguser -d accounting_db']
             interval: 5s

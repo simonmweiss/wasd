@@ -1,6 +1,6 @@
 services:
     termservice:
-        image: nkn5729/term-service:latest
+        image: nkn5729/term-service:2025-06-20-2
         container_name: term-service
         ports:
             - 6901:6901
@@ -24,6 +24,8 @@ services:
             POSTGRES_PASSWORD: termUser_pw_geheim
         ports:
             - '2346:5432'
+        volumes:
+          - ./term-init.sql:/docker-entrypoint-initdb.d/init.sql
         healthcheck:
             test: ['CMD-SHELL', 'pg_isready -U termuser -d term_db']
             interval: 5s

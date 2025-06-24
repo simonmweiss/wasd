@@ -1,11 +1,11 @@
 services:
     termservice:
-        image: nkn5729/term-service:2025-06-20-2
+        image: yagmursagdic/termservice:v1
         container_name: term-service
         ports:
             - 6901:6901
         environment:
-            DATABASE_URL: jdbc:postgresql://termdb:5432/term_db
+            DATABASE_URL: jdbc:postgresql://term_db:5432/term_db
             DATABASE_USERNAME: termuser
             DATABASE_PASSWORD: termUser_pw_geheim
             SERVICE_PORT: 6901
@@ -15,9 +15,9 @@ services:
             kafka:
                 condition: service_started
 
-    termdb:
+    term_db:
         image: postgres:latest
-        container_name: termdb
+        container_name: term_db
         environment:
             POSTGRES_DB: term_db
             POSTGRES_USER: termuser

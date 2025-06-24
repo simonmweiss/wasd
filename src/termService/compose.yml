@@ -10,7 +10,7 @@ services:
             DATABASE_PASSWORD: termUser_pw_geheim
             SERVICE_PORT: 6901
         depends_on:
-            termdb:
+            term_db:
                 condition: service_healthy
             kafka:
                 condition: service_started

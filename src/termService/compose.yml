@@ -1,6 +1,6 @@
 services:
     termservice:
-        image: yagmursagdic/termservice-2025-06-24-v3
+        image: yagmursagdic/termservice:2025-06-24-v3
         container_name: term-service
         ports:
             - 6901:6901

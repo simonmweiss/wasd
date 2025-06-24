@@ -7,14 +7,14 @@
 | Kafka UI | 5000 |
 
 # Microservices:
-| Service                 | Port | Kafka Topic Name        | DB-Port |
-|-------------------------|------|-------------------------|---------|
-| EventService            | 8081 | event_topic             | 38368   |
+| Service                 | Port | Kafka Topic Name            | DB-Port |
+|-------------------------|------|-----------------------------|---------|
+| EventService            | 8081 | event_topic                 | 38368   |
 | EventServiceSolr        | 8983 |
-| OrganizationService     | 8082 | organization_topic      | 6742    |
-| TermregistrationService | 5173 | term_registration_topic | 5455    |
-| AccountingService       | 6900 | - (ToDo)                | 2345    |
-| TermService             | 6901 | - (ToDo)                | 2346    |
+| OrganizationService     | 8082 | organization_topic          | 6742    |
+| TermregistrationService | 5173 | term_registration_topic     | 5455    |
+| AccountingService       | 6900 | starting with accounting... | 2345    |
+| TermService             | 6901 | term_topic                  | 2346    |
 
 
 # API Dokumentation
